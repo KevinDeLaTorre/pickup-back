@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
 
+
   # GET /events
   def index
     @events = Event.all
@@ -10,6 +11,13 @@ class EventsController < ApplicationController
   def create
     @event = Event.create!( event_params )
     json_response( @event, :created ) # Returns status ok if created
+  end
+
+  # DELETE /events/:id
+  def destroy
+    set_event # Sets event to @event variable 
+    @event.destroy
+    #head :no_content
   end
 
   private 
