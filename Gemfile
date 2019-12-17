@@ -34,6 +34,7 @@ end
 group :test do
   gem 'faker' # Generates fake data for db
   gem 'database_cleaner'
+  gem 'factory_bot_rails'
 end
 
 group :development do
