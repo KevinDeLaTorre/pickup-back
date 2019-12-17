@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-
+  before_action :set_event, only: [ :show, :update, :destroy ]
 
   # GET /events
   def index
@@ -15,20 +15,17 @@ class EventsController < ApplicationController
 
   # DELETE /events/:id
   def destroy
-    get_event # Sets event to @event variable 
     @event.destroy
     #head :no_content
   end
 
   # GET /events/:id
   def show
-    @event = get_event
     json_response( @event )
   end
 
   # PUT /events/:id
   def update
-    @event = get_event
     @event.update( event_params )
     json_response( @event )
   end
@@ -38,7 +35,7 @@ class EventsController < ApplicationController
       params.permit( :title, :description, :people, :location, :category, :start_time, :end_time, :date )
     end
 
-    def get_event
+    def set_event
       @event = Event.find( params[ :id ] )
     end
 
