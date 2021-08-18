@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 
   # GET /api/events
   def index
-    @events = Event.all
+    @events = Event.all.order(:date, :start_time)
     json_response( @events )
   end
 
