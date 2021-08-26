@@ -9,7 +9,25 @@
 # Create a main sample user
 User.create!(
   name:  "Kevin De La Torre",
-  email: "kevindelatorre@live.com"
+  email: "kevin@example.com"
 )
 
 # Create events
+50.times do |event|
+  title      = Faker::Hobby.activity
+  text       = Faker::Hipster.sentence(word_count: 15, random_words_to_add: 15)
+  people     = Faker::Name.name
+  location   = Faker::Address.full_address
+  date       = Faker::Date.forward(days: 100)
+  start_time = Faker::Time.between_dates(from: date, to: date, period: :morning )
+  end_time   = Faker::Time.between( from: start_time, to: start_time + 5 )
+  Event.create(
+    title: title,
+    description: text,
+    people: people,
+    location: location,
+    date: date,
+    start_time: start_time,
+    end_time: end_time
+  )
+end
