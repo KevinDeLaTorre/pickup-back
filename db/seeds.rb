@@ -8,7 +8,7 @@
 
 # Create a main sample user
 User.create!(
-  name:  "Kevin De La Torre",
+  name:  "Kevin",
   email: "kevin@example.com"
 )
 
