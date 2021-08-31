@@ -3,34 +3,37 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   it "is valid with a name and email" do
-    user = User.new( name: "example", email: "example@example.com" )
+    user = User.new(name: "example", email: "example@example.com")
     expect(user).to be_valid
   end
 
   it "is not valid without a name" do
     user = User.new( name: "", email: "example@example.com" )
-    expect(user).not_to be_valid
+    user.valid?
+    expect(user.errors.messages[:name]).to include("can't be blank")
   end
 
   it "is not valid without an email" do
     user = User.new( name: "example", email: "" )
-    expect(user).not_to be_valid
+    user.valid?
+    expect(user.errors.messages[:email]).to include("can't be blank")
   end
 
   it "is not valid with an invalid email" do 
     user = User.new( name: "example", email: "example.com" )
-    expect(user).not_to be_valid
+    expect(user).to_not be_valid
     user.email = "example@"
-    expect(user).not_to be_valid
+    expect(user).to_not be_valid
     user.email = "@example.com"
-    expect(user).not_to be_valid
+    expect(user).to_not be_valid
     user.email = "example@example"
-    expect(user).not_to be_valid
+    expect(user).to_not be_valid
   end
 
   it "is not valid with a duplicate email" do
-    user1 = User.new( name: "example", email: "example@example.com" )
-    user2 = User.new( name: "example2", email: user1.email )
-    expect(user2).not_to be_valid
+    User.create( name: "example", email: "example@example.com" )
+    user = User.find_by(email: "example@example.com").dup
+    user.valid?
+    expect(user.errors.messages[:email]).to include("has already been taken")
   end
 end
