@@ -11,20 +11,20 @@ default: &default
 
 development:
   <<: *default
-  database: pickup-dev
+  database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: pickup-test
+  database: db/test.sqlite3
 
 production:
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: chatter_production
-  username: chatter
+  database: pickup_production
+  username: pickup
   password: <%= ENV[ 'CHATTER_DATABASE_PASSWORD' ] %>
 
