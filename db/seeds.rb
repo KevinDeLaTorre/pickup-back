@@ -22,12 +22,13 @@ User.create!(
   start_time = Faker::Time.between_dates(from: date, to: date, period: :morning )
   end_time   = Faker::Time.between( from: start_time, to: start_time + 5 )
   Event.create(
-    title: title,
+    title:       title,
     description: text,
-    people: people,
-    location: location,
-    date: date,
-    start_time: start_time,
-    end_time: end_time
+    people:      people,
+    location:    location,
+    date:        date,
+    start_time:  start_time,
+    end_time:    end_time,
+    creator:     1
   )
 end
