@@ -8,8 +8,9 @@
 
 # Create a main sample user
 User.create!(
-  name:  "Kevin",
-  email: "kevin@example.com"
+  name:     "Kevin",
+  email:    "kevin@example.com",
+  password: "password"
 )
 
 # Create events
