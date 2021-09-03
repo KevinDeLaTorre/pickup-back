@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :events, dependent: :destroy
+  has_many :active_relationships, class_name: "EventLink", foreign_key: "user_id", dependent: :destroy
+  has_many :following, through: :active_relationships, source: :event
   before_save :downcase_email
 
   validates :name, presence: true, length: { maximum: 50 }
@@ -9,6 +12,21 @@ class User < ApplicationRecord
     length: { maximum: 255 },
     format: { with: VALID_EMAIL_REGEX },
     uniqueness: { case_sensitive: false }
+
+  # Follows an event
+  def followEvent(event)
+    following << event # unless self.id == event.creator
+  end
+
+  # Unfollows an event
+  def unfollowEvent(event)
+    following.delete(event)
+  end
+
+  # Returns true if following given event
+  def following?(event)
+    following.include?(event)
+  end
 
   private
 
