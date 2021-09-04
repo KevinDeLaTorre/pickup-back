@@ -55,6 +55,9 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Devise mailer
+  config.action_mailer.default_url_options = { host: 'pickup-app-backend.herokuapp.com' }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
