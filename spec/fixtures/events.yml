@@ -1,0 +1,7 @@
+volleyball:
+  title:       Pickup Volleyball
+  description: Come out and play volleyball
+  date:        <%= Date.tomorrow %>
+  start_time:  <%= DateTime.tomorrow.noon %>
+  end_time:    <%= DateTime.tomorrow.noon + 2.hours %>
+  creator:     1

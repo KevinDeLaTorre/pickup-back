@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   it "is valid with a name and email" do
     user = User.new(name: "example", email: "example@example.com")
     expect(user).to be_valid
@@ -35,5 +34,17 @@ RSpec.describe User, type: :model do
     user = User.find_by(email: "example@example.com").dup
     user.valid?
     expect(user.errors.messages[:email]).to include("has already been taken")
+  end
+
+  it "follows an event" do
+    user = User.create(name: "user", email: "email@example.com")
+    user2 = User.create(name: "user2", email: "email2@example.com")
+    event = Event.create(title: "event", date: Date.tomorrow, start_time: DateTime.tomorrow.noon, creator: user2.id)
+    expect(user.following.count).to eq(0)
+    expect(event.followers.count).to eq(0)
+    user.followEvent(event)
+    expect(user.following.count).to eq(1)
+    expect(event.followers.count).to eq(1)
+    expect(user.following?(event)).to be true
   end
 end
