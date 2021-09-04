@@ -6,7 +6,7 @@ class Event < ApplicationRecord
     has_many :followers, through: :passive_relationships, source: :user
 
     # Returns whether a user is a follower of this event
-    def isFollower?(user)
+    def has_follower?(user)
         return followers.include?(user)
     end
 end

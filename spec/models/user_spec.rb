@@ -42,9 +42,10 @@ RSpec.describe User, type: :model do
     event = Event.create(title: "event", date: Date.tomorrow, start_time: DateTime.tomorrow.noon, creator: user2.id)
     expect(user.following.count).to eq(0)
     expect(event.followers.count).to eq(0)
-    user.followEvent(event)
+    user.follow_event(event)
     expect(user.following.count).to eq(1)
     expect(event.followers.count).to eq(1)
     expect(user.following?(event)).to be true
+    expect(event.has_follower?(user)).to be true
   end
 end

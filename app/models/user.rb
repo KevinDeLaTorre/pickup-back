@@ -14,12 +14,12 @@ class User < ApplicationRecord
     uniqueness: { case_sensitive: false }
 
   # Follows an event
-  def followEvent(event)
+  def follow_event(event)
     following << event # unless self.id == event.creator
   end
 
   # Unfollows an event
-  def unfollowEvent(event)
+  def unfollow_event(event)
     following.delete(event)
   end
 
