@@ -21,11 +21,11 @@ gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dab
 gem 'devise'
 gem 'devise_token_auth'
 gem 'omniauth', '>= 1.0.0'
+gem 'faker' # Generates fake data for db seed
 
 group :development,  :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug',      platforms: [:mri, :mingw, :x64_mingw]
-  gem 'faker' # Generates fake data for db seed
   gem 'guard-rspec', require: false
   gem 'rspec-rails'
   gem 'sqlite3',     '~> 1.4'
