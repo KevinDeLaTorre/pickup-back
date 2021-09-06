@@ -57,4 +57,43 @@ RSpec.describe "Users", type: :request do
       expect(response.status).to eq(422) # Unprocessable entity
     end
   end
+
+  describe "Sign in" do
+    it "is valid with correct information" do
+      # Create user
+      post api_user_registration_path, params: { user: {
+        name: "tester",
+        email: "tester@example.com",
+        password: "password",
+        password_confirmation: "password"
+      }}
+      # Log in
+      user = User.find_by(email: "tester@example.com")
+      expect(user).to_not be_nil
+      post api_user_session_path, params: { 
+        email: "tester@example.com",
+        password: "password"
+      }
+      expect(response.status).to eq(200)
+    end
+
+    it "is invalid with wrong email/password" do
+      # Create user
+      post api_user_registration_path, params: { user: {
+        name: "tester",
+        email: "tester@example.com",
+        password: "password",
+        password_confirmation: "password"
+      }}
+      # Log in
+      user = User.find_by(email: "tester@example.com")
+      expect(user).to_not be_nil
+      post api_user_session_path, params: { 
+        email: "tester@example.com",
+        password: ""
+      }
+      expect(response.status).to eq(401)
+    end
+
+  end
 end
