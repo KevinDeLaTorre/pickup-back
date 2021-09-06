@@ -44,7 +44,7 @@ RSpec.describe User, type: :model do
     expect(user.errors.messages[:email]).to include("has already been taken")
   end
 
-  it "can follow an event successfully" do
+  it "can follow an event" do
     event = Event.create(title: "event", date: Date.tomorrow, start_time: DateTime.tomorrow.noon, creator: @user2.id)
     expect(@user.following.count).to eq(0)
     expect(event.followers.count).to eq(0)
@@ -53,5 +53,14 @@ RSpec.describe User, type: :model do
     expect(event.followers.count).to eq(1)
     expect(@user.following?(event)).to be true
     expect(event.has_follower?(@user)).to be true
+  end
+
+  it "can unfollow an event" do
+    event = Event.create(title: "event", date: Date.tomorrow, start_time: DateTime.tomorrow.noon, creator: @user2.id)
+    @user.follow_event(event)
+    expect(event.has_follower?(@user)).to be true
+    @user.unfollow_event(event)
+    expect(event.has_follower?(@user)).to be false
+    expect(@user.following?(event)).to be false
   end
 end
