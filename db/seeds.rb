@@ -21,7 +21,7 @@ User.create(
   location   = Faker::Address.full_address
   date       = Faker::Date.forward(days: 100)
   start_time = Faker::Time.between_dates(from: date, to: date, period: :morning )
-  end_time   = Faker::Time.between( from: start_time, to: start_time + 5 )
+  end_time   = Faker::Time.between( from: start_time, to: start_time + 5.hours )
   Event.create(
     title:       title,
     description: text,
