@@ -75,6 +75,9 @@ RSpec.describe "Users", type: :request do
         password: "password"
       }
       expect(response.status).to eq(200)
+      expect(response.headers["Access-Token"]).to_not be_nil
+      expect(response.headers["Client"]).to_not be_nil
+      expect(response.headers["Uid"]).to_not be_nil
     end
 
     it "is invalid with wrong email/password" do
@@ -93,7 +96,9 @@ RSpec.describe "Users", type: :request do
         password: ""
       }
       expect(response.status).to eq(401)
+      expect(response.headers["Access-Token"]).to be_nil
+      expect(response.headers["Client"]).to be_nil
+      expect(response.headers["Uid"]).to be_nil
     end
-
   end
 end
