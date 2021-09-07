@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Create a main sample user
-User.create!(
+User.create(
   name:     "Kevin",
   email:    "kevin@example.com",
   password: "password"
