@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   # GET /api/events
   def index
     @events = Event.order(date: :desc, start_time: :desc).includes(:followers)
-    @events_with_associations = @events.map { |event| event.merge(followers: event.followers) }
+    @events_with_associations = @events.map { |event| event.attributes.merge(followers: event.followers) }
     json_response( @events_with_associations )
   end
 
